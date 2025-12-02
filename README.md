@@ -1,8 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Digital Admin Dashboard
 
-## Getting Started
+A modern, full-featured admin dashboard built with Next.js 15, TypeScript, Shadcn/UI, and TanStack Query to manage your Digital app's users, posts, comments, and analytics.
 
-First, run the development server:
+## 🎯 Features
+
+### ✅ **Implemented**
+- **Dashboard Overview** - Stats cards with metrics (users, posts, comments, likes)
+- **User Management** - View, search, and delete users with pagination
+- **Post Management** - Browse, search, and moderate posts with engagement metrics
+- **Comment Management** - Monitor and moderate user comments
+- **Authentication** - Secure login system with JWT tokens
+- **Responsive Design** - Mobile-first UI with Tailwind CSS
+- **Data Tables** - Sortable, searchable tables with pagination
+- **Toast Notifications** - User feedback for actions
+- **Loading States** - Skeleton loaders for better UX
+- **Confirmation Dialogs** - Safety prompts before destructive actions
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **UI Library:** Shadcn/UI
+- **Styling:** Tailwind CSS v4
+- **State Management:** TanStack Query (React Query)
+- **HTTP Client:** Axios
+- **Icons:** Lucide React
+- **Date Formatting:** date-fns
+- **Notifications:** Sonner
+
+## 📦 Installation
+
+```bash
+cd digital-admin
+npm install
+```
+
+## ⚙️ Configuration
+
+Edit `.env.local` file:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
+```
+
+## 🚀 Running the App
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) (Next.js will use port 3000 by default)
 
 ```bash
 npm run dev
