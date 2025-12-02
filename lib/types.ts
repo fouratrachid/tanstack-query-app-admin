@@ -1,9 +1,19 @@
 // User Types
+export enum Role {
+    USER = 'USER',
+    ADMIN = 'ADMIN',
+    MODERATOR = 'MODERATOR',
+}
+
 export interface User {
     id: string;
     name: string;
     email: string;
+    role: Role;
+    bio?: string;
+    avatarUrl?: string;
     createdAt: string;
+    updatedAt: string;
     _count?: {
         posts: number;
         comments: number;
@@ -81,4 +91,29 @@ export interface LoginCredentials {
 export interface AuthResponse {
     user: User;
     accessToken: string;
+}
+
+export interface AdminSignupData {
+    name: string;
+    email: string;
+    password: string;
+    role: Role;
+}
+
+export interface CreateUserData {
+    name: string;
+    email: string;
+    password: string;
+    role: Role;
+    bio?: string;
+    avatarUrl?: string;
+}
+
+export interface UpdateUserData {
+    name?: string;
+    email?: string;
+    password?: string;
+    role?: Role;
+    bio?: string;
+    avatarUrl?: string;
 }
