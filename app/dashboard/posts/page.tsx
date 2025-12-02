@@ -23,7 +23,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/dialog";
+} from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search, Trash2, Eye, Heart, MessageSquare } from "lucide-react";
 import { getPosts, deletePost } from "@/lib/api";
@@ -39,7 +39,7 @@ export default function PostsPage() {
 
   const { data, isLoading } = useQuery({
     queryKey: ["posts", page, search],
-    queryFn: () => getPosts({ page, limit: 10, search }),
+    queryFn: () => getPosts({ page, limit: 10 }),
   });
 
   const deleteMutation = useMutation({
