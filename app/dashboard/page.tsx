@@ -11,7 +11,7 @@ export default function DashboardPage() {
     queryKey: ["dashboard-stats"],
     queryFn: getDashboardStats,
   });
-
+  console.log("Stats:", stats);
   const cards = [
     {
       title: "Total Users",
