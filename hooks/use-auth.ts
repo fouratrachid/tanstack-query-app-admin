@@ -9,7 +9,7 @@ export function useAuth() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const token = localStorage.getItem('admin_token');
+        const token = localStorage.getItem('accessToken');
         if (!token) {
             router.push('/login');
         } else {
@@ -19,7 +19,13 @@ export function useAuth() {
     }, [router]);
 
     const logout = () => {
-        localStorage.removeItem('admin_token');
+        console.log('logout');
+        const accessToken = localStorage.getItem('accessToken');
+        console.log("\n access token\n ---- \n ", accessToken);
+        const refreshToken = localStorage.getItem('refreshToken');
+        console.log("\n refresh token\n ---- \n ", refreshToken);
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         router.push('/login');
     };
 
