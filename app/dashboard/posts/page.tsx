@@ -25,15 +25,18 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Search, Trash2, Eye, Heart, MessageSquare } from "lucide-react";
+import { Search, Trash2, Eye, Heart, MessageSquare, Pencil } from "lucide-react";
 import { getPosts, deletePost } from "@/lib/api";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
+import { EditPostDialog } from "./edit-post-dialog";
+import { Post } from "@/lib/types";
 
 export default function PostsPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [deletePostId, setDeletePostId] = useState<string | null>(null);
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -139,8 +142,12 @@ export default function PostsPage() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button variant="ghost" size="sm">
-                            <Eye className="h-4 w-4" />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setEditingPost(post)}
+                          >
+                            <Pencil className="h-4 w-4 text-blue-500" />
                           </Button>
                           <Button
                             variant="ghost"
@@ -188,6 +195,12 @@ export default function PostsPage() {
           )}
         </CardContent>
       </Card>
+
+      <EditPostDialog 
+        post={editingPost} 
+        open={!!editingPost} 
+        onOpenChange={(open) => !open && setEditingPost(null)} 
+      />
 
       <AlertDialog
         open={!!deletePostId}

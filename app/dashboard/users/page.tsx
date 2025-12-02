@@ -42,15 +42,17 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { UserPlus, Trash2, Shield, User as UserIcon } from "lucide-react";
+import { UserPlus, Trash2, Shield, User as UserIcon, Pencil } from "lucide-react";
 import { getUsers, deleteUser, createUser } from "@/lib/api";
-import { Role } from "@/lib/types";
+import { Role, User } from "@/lib/types";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
+import { EditUserDialog } from "./edit-user-dialog";
 
 export default function UsersPage() {
   const [page, setPage] = useState(1);
   const [deleteUserId, setDeleteUserId] = useState<string | null>(null);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -281,13 +283,22 @@ export default function UsersPage() {
                         {format(new Date(user.createdAt), "MMM dd, yyyy")}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setDeleteUserId(user.id)}
-                        >
-                          <Trash2 className="h-4 w-4 text-red-500" />
-                        </Button>
+                        <div className="flex justify-end gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setEditingUser(user)}
+                          >
+                            <Pencil className="h-4 w-4 text-blue-500" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setDeleteUserId(user.id)}
+                          >
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -322,6 +333,12 @@ export default function UsersPage() {
           )}
         </CardContent>
       </Card>
+
+      <EditUserDialog 
+        user={editingUser} 
+        open={!!editingUser} 
+        onOpenChange={(open) => !open && setEditingUser(null)} 
+      />
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog

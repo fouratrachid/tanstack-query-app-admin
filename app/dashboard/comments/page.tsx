@@ -23,14 +23,17 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Trash2 } from "lucide-react";
+import { Trash2, Pencil } from "lucide-react";
 import { getComments, deleteComment } from "@/lib/api";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
+import { EditCommentDialog } from "./edit-comment-dialog";
+import { Comment } from "@/lib/types";
 
 export default function CommentsPage() {
   const [page, setPage] = useState(1);
   const [deleteCommentId, setDeleteCommentId] = useState<string | null>(null);
+  const [editingComment, setEditingComment] = useState<Comment | null>(null);
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -104,14 +107,23 @@ export default function CommentsPage() {
                         {format(new Date(comment.createdAt), "PP")}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setDeleteCommentId(comment.id)}
-                          className="text-red-600 hover:text-red-700"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+                        <div className="flex justify-end gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setEditingComment(comment)}
+                          >
+                            <Pencil className="h-4 w-4 text-blue-500" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setDeleteCommentId(comment.id)}
+                            className="text-red-600 hover:text-red-700"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -149,6 +161,12 @@ export default function CommentsPage() {
           )}
         </CardContent>
       </Card>
+
+      <EditCommentDialog 
+        comment={editingComment} 
+        open={!!editingComment} 
+        onOpenChange={(open) => !open && setEditingComment(null)} 
+      />
 
       <AlertDialog
         open={!!deleteCommentId}

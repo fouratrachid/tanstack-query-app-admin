@@ -51,7 +51,8 @@ export default function LoginPage() {
         email: loginEmail,
         password: loginPassword,
       });
-      localStorage.setItem("admin_token", response.accessToken);
+      localStorage.setItem("accessToken", response.accessToken);
+      localStorage.setItem("refreshToken", response.refreshToken);
       router.push("/dashboard");
     } catch (err: any) {
       setError(err.response?.data?.message || "Invalid credentials");
@@ -80,7 +81,8 @@ export default function LoginPage() {
       });
 
       console.log("Signup successful:", response);
-      localStorage.setItem("admin_token", response.accessToken);
+      localStorage.setItem("accessToken", response.accessToken);
+      localStorage.setItem("refreshToken", response.refreshToken);
       router.push("/dashboard");
     } catch (err: any) {
       console.error("Signup error:", err);
