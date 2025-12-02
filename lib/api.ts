@@ -9,7 +9,9 @@ import type {
     AuthResponse,
     AdminSignupData,
     CreateUserData,
-    UpdateUserData
+    UpdateUserData,
+    UpdatePostData,
+    UpdateCommentData
 } from './types';
 
 // ========== Auth API ==========
@@ -82,6 +84,11 @@ export const togglePostPublish = async (postId: string): Promise<Post> => {
     return response.data;
 };
 
+export const updatePost = async (postId: string, data: UpdatePostData): Promise<Post> => {
+    const response = await apiClient.patch<Post>(`/posts/${postId}`, data);
+    return response.data;
+};
+
 // ========== Comments API ==========
 export const getComments = async (params: {
     page?: number;
@@ -95,6 +102,11 @@ export const getComments = async (params: {
 
 export const deleteComment = async (commentId: string): Promise<void> => {
     await apiClient.delete(`/posts/comments/${commentId}`);
+};
+
+export const updateComment = async (commentId: string, data: UpdateCommentData): Promise<Comment> => {
+    const response = await apiClient.patch<Comment>(`/posts/comments/${commentId}`, data);
+    return response.data;
 };
 
 // ========== Dashboard Stats API ==========

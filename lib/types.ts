@@ -91,6 +91,7 @@ export interface LoginCredentials {
 export interface AuthResponse {
     user: User;
     accessToken: string;
+    refreshToken: string;
 }
 
 export interface AdminSignupData {
@@ -116,4 +117,15 @@ export interface UpdateUserData {
     role?: Role;
     bio?: string;
     avatarUrl?: string;
+}
+
+export interface UpdatePostData {
+    title?: string;
+    content?: string;
+    imageUrl?: string;
+    isPublished?: boolean;
+}
+
+export interface UpdateCommentData {
+    content: string;
 }
