@@ -17,11 +17,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { updateUser } from "@/lib/api";
 import { Role, User } from "@/lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { updateUser } from "@/lib/usersService";
 
 interface EditUserDialogProps {
   user: User | null;
@@ -29,7 +29,11 @@ interface EditUserDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function EditUserDialog({ user, open, onOpenChange }: EditUserDialogProps) {
+export function EditUserDialog({
+  user,
+  open,
+  onOpenChange,
+}: EditUserDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -98,7 +102,9 @@ export function EditUserDialog({ user, open, onOpenChange }: EditUserDialogProps
               <Input
                 id="edit-name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 required
               />
             </div>
@@ -108,7 +114,9 @@ export function EditUserDialog({ user, open, onOpenChange }: EditUserDialogProps
                 id="edit-email"
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 required
               />
             </div>
@@ -116,7 +124,9 @@ export function EditUserDialog({ user, open, onOpenChange }: EditUserDialogProps
               <Label htmlFor="edit-role">Role</Label>
               <Select
                 value={formData.role}
-                onValueChange={(value) => setFormData({ ...formData, role: value as Role })}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, role: value as Role })
+                }
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -133,7 +143,9 @@ export function EditUserDialog({ user, open, onOpenChange }: EditUserDialogProps
               <Textarea
                 id="edit-bio"
                 value={formData.bio}
-                onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, bio: e.target.value })
+                }
               />
             </div>
             <div className="grid gap-2">
@@ -141,12 +153,18 @@ export function EditUserDialog({ user, open, onOpenChange }: EditUserDialogProps
               <Input
                 id="edit-avatar"
                 value={formData.avatarUrl}
-                onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, avatarUrl: e.target.value })
+                }
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={mutation.isPending}>

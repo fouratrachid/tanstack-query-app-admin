@@ -42,12 +42,18 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { UserPlus, Trash2, Shield, User as UserIcon, Pencil } from "lucide-react";
-import { getUsers, deleteUser, createUser } from "@/lib/api";
+import {
+  UserPlus,
+  Trash2,
+  Shield,
+  User as UserIcon,
+  Pencil,
+} from "lucide-react";
 import { Role, User } from "@/lib/types";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { EditUserDialog } from "./edit-user-dialog";
+import { createUser, deleteUser, getUsers } from "@/lib/usersService";
 
 export default function UsersPage() {
   const [page, setPage] = useState(1);
@@ -62,7 +68,7 @@ export default function UsersPage() {
     bio: "",
     avatarUrl: "",
   });
-  
+
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -171,7 +177,9 @@ export default function UsersPage() {
                   <Input
                     id="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     required
                   />
                 </div>
@@ -181,7 +189,9 @@ export default function UsersPage() {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     required
                   />
                 </div>
@@ -191,7 +201,9 @@ export default function UsersPage() {
                     id="password"
                     type="password"
                     value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
                     required
                     minLength={8}
                   />
@@ -200,7 +212,9 @@ export default function UsersPage() {
                   <Label htmlFor="role">Role</Label>
                   <Select
                     value={formData.role}
-                    onValueChange={(value) => setFormData({ ...formData, role: value as Role })}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, role: value as Role })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -217,7 +231,9 @@ export default function UsersPage() {
                   <Input
                     id="bio"
                     value={formData.bio}
-                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, bio: e.target.value })
+                    }
                   />
                 </div>
                 <div className="grid gap-2">
@@ -226,12 +242,18 @@ export default function UsersPage() {
                     id="avatarUrl"
                     type="url"
                     value={formData.avatarUrl}
-                    onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, avatarUrl: e.target.value })
+                    }
                   />
                 </div>
               </div>
               <DialogFooter>
-                <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsCreateDialogOpen(false)}
+                >
                   Cancel
                 </Button>
                 <Button type="submit" disabled={createMutation.isPending}>
@@ -308,7 +330,7 @@ export default function UsersPage() {
               {/* Pagination */}
               <div className="flex items-center justify-between mt-4">
                 <p className="text-sm text-gray-600">
-                  Showing {((page - 1) * 10) + 1} to{" "}
+                  Showing {(page - 1) * 10 + 1} to{" "}
                   {Math.min(page * 10, data?.meta.total || 0)} of{" "}
                   {data?.meta.total} users
                 </p>
@@ -334,10 +356,10 @@ export default function UsersPage() {
         </CardContent>
       </Card>
 
-      <EditUserDialog 
-        user={editingUser} 
-        open={!!editingUser} 
-        onOpenChange={(open) => !open && setEditingUser(null)} 
+      <EditUserDialog
+        user={editingUser}
+        open={!!editingUser}
+        onOpenChange={(open) => !open && setEditingUser(null)}
       />
 
       {/* Delete Confirmation Dialog */}
@@ -356,7 +378,9 @@ export default function UsersPage() {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => deleteUserId && deleteMutation.mutate(deleteUserId)}
+              onClick={() =>
+                deleteUserId && deleteMutation.mutate(deleteUserId)
+              }
               className="bg-red-500 hover:bg-red-600"
             >
               Delete

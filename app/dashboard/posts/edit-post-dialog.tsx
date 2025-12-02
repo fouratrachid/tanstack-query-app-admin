@@ -11,11 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { updatePost } from "@/lib/api";
 import { Post } from "@/lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { updatePost } from "@/lib/postsService";
 
 interface EditPostDialogProps {
   post: Post | null;
@@ -23,7 +23,11 @@ interface EditPostDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function EditPostDialog({ post, open, onOpenChange }: EditPostDialogProps) {
+export function EditPostDialog({
+  post,
+  open,
+  onOpenChange,
+}: EditPostDialogProps) {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -90,7 +94,9 @@ export function EditPostDialog({ post, open, onOpenChange }: EditPostDialogProps
               <Input
                 id="edit-title"
                 value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
                 required
               />
             </div>
@@ -99,7 +105,9 @@ export function EditPostDialog({ post, open, onOpenChange }: EditPostDialogProps
               <Textarea
                 id="edit-content"
                 value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, content: e.target.value })
+                }
                 required
                 className="min-h-[150px]"
               />
@@ -109,20 +117,28 @@ export function EditPostDialog({ post, open, onOpenChange }: EditPostDialogProps
               <Input
                 id="edit-image"
                 value={formData.imageUrl}
-                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, imageUrl: e.target.value })
+                }
               />
             </div>
             <div className="flex items-center space-x-2">
               <Switch
                 id="edit-published"
                 checked={formData.isPublished}
-                onCheckedChange={(checked) => setFormData({ ...formData, isPublished: checked })}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isPublished: checked })
+                }
               />
               <Label htmlFor="edit-published">Published</Label>
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={mutation.isPending}>

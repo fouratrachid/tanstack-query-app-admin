@@ -25,12 +25,12 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Search, Trash2, Eye, Heart, MessageSquare, Pencil } from "lucide-react";
-import { getPosts, deletePost } from "@/lib/api";
+import { Search, Trash2, Heart, MessageSquare, Pencil } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { EditPostDialog } from "./edit-post-dialog";
 import { Post } from "@/lib/types";
+import { deletePost, getPosts } from "@/lib/postsService";
 
 export default function PostsPage() {
   const [page, setPage] = useState(1);
@@ -196,10 +196,10 @@ export default function PostsPage() {
         </CardContent>
       </Card>
 
-      <EditPostDialog 
-        post={editingPost} 
-        open={!!editingPost} 
-        onOpenChange={(open) => !open && setEditingPost(null)} 
+      <EditPostDialog
+        post={editingPost}
+        open={!!editingPost}
+        onOpenChange={(open) => !open && setEditingPost(null)}
       />
 
       <AlertDialog

@@ -21,8 +21,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { login, adminSignup } from "@/lib/api";
 import { Role } from "@/lib/types";
+import { login, adminSignup } from "@/lib/authService";
 
 export default function LoginPage() {
   const router = useRouter();

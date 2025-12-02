@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, FileText, MessageSquare, Heart } from "lucide-react";
-import { getDashboardStats } from "@/lib/api";
+import { getDashboardStats } from "@/lib/statsService";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardPage() {

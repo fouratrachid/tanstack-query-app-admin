@@ -24,11 +24,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Trash2, Pencil } from "lucide-react";
-import { getComments, deleteComment } from "@/lib/api";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { EditCommentDialog } from "./edit-comment-dialog";
 import { Comment } from "@/lib/types";
+import { deleteComment, getComments } from "@/lib/commentsService";
 
 export default function CommentsPage() {
   const [page, setPage] = useState(1);
@@ -162,10 +162,10 @@ export default function CommentsPage() {
         </CardContent>
       </Card>
 
-      <EditCommentDialog 
-        comment={editingComment} 
-        open={!!editingComment} 
-        onOpenChange={(open) => !open && setEditingComment(null)} 
+      <EditCommentDialog
+        comment={editingComment}
+        open={!!editingComment}
+        onOpenChange={(open) => !open && setEditingComment(null)}
       />
 
       <AlertDialog

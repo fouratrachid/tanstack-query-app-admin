@@ -9,11 +9,11 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { updateComment } from "@/lib/api";
 import { Comment } from "@/lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { updateComment } from "@/lib/commentsService";
 
 interface EditCommentDialogProps {
   comment: Comment | null;
@@ -21,7 +21,11 @@ interface EditCommentDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function EditCommentDialog({ comment, open, onOpenChange }: EditCommentDialogProps) {
+export function EditCommentDialog({
+  comment,
+  open,
+  onOpenChange,
+}: EditCommentDialogProps) {
   const [content, setContent] = useState("");
 
   const queryClient = useQueryClient();
@@ -49,7 +53,8 @@ export function EditCommentDialog({ comment, open, onOpenChange }: EditCommentDi
     onError: (error: any) => {
       toast({
         title: "Error",
-        description: error.response?.data?.message || "Failed to update comment",
+        description:
+          error.response?.data?.message || "Failed to update comment",
         variant: "destructive",
       });
     },
@@ -68,9 +73,7 @@ export function EditCommentDialog({ comment, open, onOpenChange }: EditCommentDi
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Edit Comment</DialogTitle>
-            <DialogDescription>
-              Update comment content
-            </DialogDescription>
+            <DialogDescription>Update comment content</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
@@ -85,7 +88,11 @@ export function EditCommentDialog({ comment, open, onOpenChange }: EditCommentDi
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={mutation.isPending}>
